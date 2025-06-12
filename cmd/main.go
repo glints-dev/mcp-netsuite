@@ -83,6 +83,34 @@ func main() {
 		"NetSuite MCP Server",
 		"1.0.0",
 		server.WithToolCapabilities(true),
+		server.WithInstructions(`This is a NetSuite MCP Server that provides access to NetSuite data through two main tools:
+
+IMPORTANT WORKFLOW:
+1. ALWAYS use 'netsuite_get_metadata' FIRST to understand the schema of NetSuite record types before querying
+2. Review the returned metadata to verify field names, data types, and structure
+3. Then use 'netsuite_run_suiteql' with the verified field names from the metadata
+
+TOOL USAGE GUIDELINES:
+
+netsuite_get_metadata:
+- Use this tool to get the schema/structure of NetSuite record types
+- Common record types: customer, item, transaction, salesorder, purchaseorder, invoice, employee, vendor
+- This helps you understand what fields are available and their correct names
+- Always call this before writing SuiteQL queries for unfamiliar record types
+
+netsuite_run_suiteql:
+- Use this tool to execute SuiteQL queries against NetSuite
+- MUST be preceded by netsuite_get_metadata to verify field names and structure
+- Use proper NetSuite field names (often different from UI labels)
+- Table names are typically lowercase (e.g., 'customer', 'item', 'transaction')
+- Include LIMIT clauses to avoid retrieving too much data
+- Be mindful of NetSuite's query performance considerations
+
+Example workflow:
+1. Call netsuite_get_metadata with record_type="customer" 
+2. Review the returned fields and their types
+3. Construct your SuiteQL query using the verified field names
+4. Execute the query with netsuite_run_suiteql`),
 	)
 
 	// Add NetSuite metadata tool
