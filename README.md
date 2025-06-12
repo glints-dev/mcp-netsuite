@@ -52,7 +52,7 @@ Add to your `claude_desktop_config.json`:
   "mcpServers": {
     "netsuite": {
       "command": "go",
-      "args": ["run", "github.com/glints-dev/mcp-netsuite@latest"],
+      "args": ["run", "github.com/glints-dev/mcp-netsuite/cmd@latest"],
       "env": {
         "NETSUITE_ACCOUNT_ID": "your_account_id",
         "NETSUITE_CLIENT_ID": "your_client_id",
